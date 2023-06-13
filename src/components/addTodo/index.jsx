@@ -34,7 +34,6 @@ function AddTask({ onAddTask }) {
       dueDate: new Date().toISOString().substr(0, 10),
       priority: "normal",
     });
-    console.log("Task Data:", newTask);
   };
 
   return (

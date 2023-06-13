@@ -8,11 +8,8 @@ function TodoList({ todos }) {
   const [updateTask, setUpdateTask] = useState("");
   const [nameTask, setNameTask] = useState("");
   const [taskName, setTaskName] = useState("Name");
-  const [showAllDetails, setShowAllDetails] = useState(false);
-
-  const handleDetailBulkButtonClick = () => {
-    setShowAllDetails(!showAllDetails);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
+  const [todoList, setTodoList] = useState([]);
 
   const handleTaskNameUpdate = (newTaskName) => {
     setTaskName(newTaskName);
@@ -20,6 +17,10 @@ function TodoList({ todos }) {
 
   const handleNewTaskChange = (event) => {
     setUpdateTask(event.target.value);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleDetailButtonClick = (id) => {
@@ -30,6 +31,15 @@ function TodoList({ todos }) {
     }
   };
 
+  const handleRemoveButtonClick = (id) => {
+    setTodoList(todoList.filter((todo) => todo.id !== id));
+  };
+
+  // Lọc danh sách todos dựa trên giá trị tìm kiếm
+  const filteredTodos = todos.filter((todo) =>
+    todo.nameTask.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
       <h1 className="form-heading">Todo List</h1>
@@ -38,18 +48,22 @@ function TodoList({ todos }) {
           id="addTask"
           type="text"
           placeholder="Search ..."
-          value={updateTask}
-          onChange={handleNewTaskChange}
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
       </div>
       <div className="task-list">
-        {todos.map((todo, id) => (
+        {filteredTodos.map((todo, id) => (
           <div className="items-list" key={id}>
             <input type="checkbox" className="checkbox" />
             <label htmlFor="nametask" className="nametask">
               {todo.nameTask}
             </label>
-            <button className="remove-button">Remove</button>
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveButtonClick(id)}>
+              Remove
+            </button>
             <button
               className="detail-button"
               onClick={() => handleDetailButtonClick(id)}>
@@ -61,7 +75,7 @@ function TodoList({ todos }) {
           </div>
         ))}
       </div>
-      <Bulk showAllDetails={showAllDetails} />
+      <Bulk />
     </div>
   );
 }

@@ -2,12 +2,6 @@
 import React, { useState } from "react";
 
 function Bulk({ showAllDetails }) {
-  const [isShowingDetails, setIsShowingDetails] = useState(showAllDetails);
-
-  const handleDetailBulkButtonClick = () => {
-    setIsShowingDetails(!isShowingDetails);
-  };
-
   const handleRemoveAllTodos = () => {};
 
   return (
@@ -19,9 +13,7 @@ function Bulk({ showAllDetails }) {
         <button className="remove-button" onClick={handleRemoveAllTodos}>
           Remove
         </button>
-        <button className="detail-button" onClick={handleDetailBulkButtonClick}>
-          Details
-        </button>
+        <button className="detail-button">Details</button>
       </div>
     </div>
   );
