@@ -19,6 +19,10 @@ function AddTask({ onAddTask }) {
   };
 
   const handleAddTask = () => {
+    if (taskData.nameTask.trim() === "" || taskData.description.trim() === "") {
+      return;
+    }
+
     const newTask = {
       id: Date.now(),
       nameTask: taskData.nameTask,
@@ -47,6 +51,7 @@ function AddTask({ onAddTask }) {
           placeholder="Add new task..."
           value={taskData.nameTask}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className="form-control">
@@ -56,6 +61,7 @@ function AddTask({ onAddTask }) {
           name="description"
           value={taskData.description}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className="form-control-inline">
@@ -69,6 +75,7 @@ function AddTask({ onAddTask }) {
             name="dueDate"
             value={taskData.dueDate}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="form-control">
@@ -79,7 +86,8 @@ function AddTask({ onAddTask }) {
             id="priority"
             name="priority"
             value={taskData.priority}
-            onChange={handleInputChange}>
+            onChange={handleInputChange}
+            required>
             <option value="low">Low</option>
             <option value="normal">Normal</option>
             <option value="high">High</option>
