@@ -5,19 +5,7 @@ import Bulk from "./components/bulk";
 
 function TodoList({ todos }) {
   const [detailTodoIds, setDetailTodoIds] = useState([]);
-  const [updateTask, setUpdateTask] = useState("");
-  const [nameTask, setNameTask] = useState("");
-  const [taskName, setTaskName] = useState("Name");
   const [searchTerm, setSearchTerm] = useState("");
-  const [todoList, setTodoList] = useState([]);
-
-  const handleTaskNameUpdate = (newTaskName) => {
-    setTaskName(newTaskName);
-  };
-
-  const handleNewTaskChange = (event) => {
-    setUpdateTask(event.target.value);
-  };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -32,7 +20,8 @@ function TodoList({ todos }) {
   };
 
   const handleRemoveButtonClick = (id) => {
-    setTodoList(todoList.filter((todo) => todo.id !== id));
+    // Xóa todo khỏi danh sách
+    setTodoList(todos.filter((todo) => todo.id !== id));
   };
 
   // Lọc danh sách todos dựa trên giá trị tìm kiếm
@@ -61,17 +50,15 @@ function TodoList({ todos }) {
             </label>
             <button
               className="remove-button"
-              onClick={() => handleRemoveButtonClick(id)}>
+              onClick={() => handleRemoveButtonClick(todo.id)}>
               Remove
             </button>
             <button
               className="detail-button"
-              onClick={() => handleDetailButtonClick(id)}>
+              onClick={() => handleDetailButtonClick(todo.id)}>
               Details
             </button>
-            {detailTodoIds.includes(id) && (
-              <UpdateTodo onTaskNameUpdate={handleTaskNameUpdate} todo={todo} />
-            )}
+            {detailTodoIds.includes(todo.id) && <UpdateTodo todo={todo} />}
           </div>
         ))}
       </div>

@@ -8,7 +8,6 @@ function AddTask({ onAddTask }) {
     dueDate: new Date().toISOString().substr(0, 10),
     priority: "normal",
   });
-  const [todos, setTodos] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
