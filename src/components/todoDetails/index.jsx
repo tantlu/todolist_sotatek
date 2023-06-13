@@ -3,9 +3,10 @@ import "./styletodo.css";
 import UpdateTodo from "./components/updateTodo";
 import Bulk from "./components/bulk";
 
-function TodoList({ todos }) {
+function TodoList({ todos, onRemoveTodo, onTaskUpdate }) {
   const [detailTodoIds, setDetailTodoIds] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTodoId, setSelectedTodoId] = useState(null);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -14,17 +15,31 @@ function TodoList({ todos }) {
   const handleDetailButtonClick = (id) => {
     if (detailTodoIds.includes(id)) {
       setDetailTodoIds(detailTodoIds.filter((todoId) => todoId !== id));
+      setSelectedTodoId(null);
     } else {
       setDetailTodoIds([...detailTodoIds, id]);
+      setSelectedTodoId(id);
     }
   };
 
   const handleRemoveButtonClick = (id) => {
-    // Xóa todo khỏi danh sách
-    setTodoList(todos.filter((todo) => todo.id !== id));
+    onRemoveTodo(id);
   };
 
-  // Lọc danh sách todos dựa trên giá trị tìm kiếm
+  const handleTaskUpdate = (updatedTodo) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === selectedTodoId) {
+        return { ...todo, ...updatedTodo };
+      }
+      return todo;
+    });
+    onTaskUpdate(updatedTodos);
+    setSelectedTodoId(null);
+    setDetailTodoIds(
+      detailTodoIds.filter((todoId) => todoId !== selectedTodoId)
+    );
+  };
+
   const filteredTodos = todos.filter((todo) =>
     todo.nameTask.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -58,7 +73,9 @@ function TodoList({ todos }) {
               onClick={() => handleDetailButtonClick(todo.id)}>
               Details
             </button>
-            {detailTodoIds.includes(todo.id) && <UpdateTodo todo={todo} />}
+            {detailTodoIds.includes(todo.id) && selectedTodoId === todo.id && (
+              <UpdateTodo onTaskUpdate={handleTaskUpdate} todo={todo} />
+            )}
           </div>
         ))}
       </div>

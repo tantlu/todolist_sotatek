@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 
 function UpdateTodo({ onTaskUpdate, todo }) {
-  const [taskData, setTaskData] = useState({
-    nameTask: todo.nameTask,
-    description: todo.description,
-    dueDate: todo.dueDate,
-    priority: todo.priority,
-  });
+  const [updatedTodo, setUpdatedTodo] = useState({ ...todo });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setTaskData({
-      ...taskData,
+    setUpdatedTodo((prevTodo) => ({
+      ...prevTodo,
       [name]: value,
-    });
+    }));
   };
 
   const handleDueDateChange = (event) => {
@@ -26,7 +21,7 @@ function UpdateTodo({ onTaskUpdate, todo }) {
   };
 
   const handleUpdateTask = () => {
-    onTaskUpdate(taskData);
+    onTaskUpdate(updatedTodo);
   };
 
   return (
@@ -37,7 +32,7 @@ function UpdateTodo({ onTaskUpdate, todo }) {
           type="text"
           placeholder=""
           name="nameTask"
-          value={taskData.nameTask}
+          value={updatedTodo.nameTask}
           onChange={handleInputChange}
         />
       </div>
@@ -46,7 +41,7 @@ function UpdateTodo({ onTaskUpdate, todo }) {
         <textarea
           id="description"
           name="description"
-          value={taskData.description}
+          value={updatedTodo.description}
           onChange={handleInputChange}
         />
       </div>
@@ -59,7 +54,7 @@ function UpdateTodo({ onTaskUpdate, todo }) {
             type="date"
             id="dueDate"
             name="dueDate"
-            value={taskData.dueDate}
+            value={updatedTodo.dueDate}
             onChange={handleDueDateChange}
           />
         </div>
@@ -70,7 +65,7 @@ function UpdateTodo({ onTaskUpdate, todo }) {
           <select
             id="priority"
             name="priority"
-            value={taskData.priority}
+            value={updatedTodo.priority}
             onChange={handleInputChange}>
             <option value="low">Low</option>
             <option value="normal">Normal</option>

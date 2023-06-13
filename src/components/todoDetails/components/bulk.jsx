@@ -1,8 +1,16 @@
-// Bulk.js
-import React, { useState } from "react";
+import React from "react";
 
-function Bulk({ showAllDetails }) {
-  const handleRemoveAllTodos = () => {};
+function Bulk() {
+  const handleRemoveAllTodos = () => {
+    // Xóa tất cả các todo
+    const updatedTodos = [];
+    setTodos(updatedTodos);
+  };
+
+  const handleShowAllDetails = () => {
+    const allTodoIds = todos.map((todo) => todo.id);
+    setDetailTodoIds(allTodoIds);
+  };
 
   return (
     <div className="bulk-action">
@@ -13,7 +21,9 @@ function Bulk({ showAllDetails }) {
         <button className="remove-button" onClick={handleRemoveAllTodos}>
           Remove
         </button>
-        <button className="detail-button">Details</button>
+        <button className="detail-button" onClick={handleShowAllDetails}>
+          Details
+        </button>
       </div>
     </div>
   );
