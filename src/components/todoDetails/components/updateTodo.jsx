@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function UpdateTodo({ onTaskNameUpdate, todo }) {
+function UpdateTodo({ onTaskUpdate, todo }) {
   const [taskData, setTaskData] = useState({
     nameTask: todo.nameTask,
     description: todo.description,
@@ -26,19 +26,17 @@ function UpdateTodo({ onTaskNameUpdate, todo }) {
   };
 
   const handleUpdateTask = () => {
-    // Perform task update logic here
-    onTaskNameUpdate(taskData.nameTask);
-    console.log("Task Data:", taskData);
+    onTaskUpdate(taskData);
   };
 
   return (
     <div className="update-task">
       <div className="form-control">
         <input
-          id="updateTask"
+          id="nameTask"
           type="text"
           placeholder=""
-          name="updateTask"
+          name="nameTask"
           value={taskData.nameTask}
           onChange={handleInputChange}
         />
