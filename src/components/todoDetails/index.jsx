@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import "./styletodo.css";
 import UpdateTodo from "./components/updateTodo";
 import Bulk from "./components/bulk";
 
-function TodoList({ todos, onRemoveTodo, onTaskUpdate }) {
+function TodoList({
+  todos,
+  onRemoveTodo,
+  onTaskUpdate,
+  onRemoveAllTodos,
+  onShowAllDetails,
+}) {
   const [detailTodoIds, setDetailTodoIds] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTodoId, setSelectedTodoId] = useState(null);
@@ -79,7 +84,7 @@ function TodoList({ todos, onRemoveTodo, onTaskUpdate }) {
           </div>
         ))}
       </div>
-      <Bulk />
+      <Bulk onRemoveAllTodos={onRemoveAllTodos} />
     </div>
   );
 }

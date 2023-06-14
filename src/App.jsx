@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddTask from "./components/addTodo";
 import TodoList from "./components/todoDetails";
+import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -28,6 +29,11 @@ function App() {
     setTodos(updatedTodos);
   };
 
+  const handleRemoveAllTodos = () => {
+    setTodos([]);
+    localStorage.removeItem("todos");
+  };
+
   return (
     <div width="100%">
       <div className="left-form">
@@ -38,6 +44,7 @@ function App() {
           todos={todos}
           onRemoveTodo={handleRemoveTodo}
           onTaskUpdate={handleTaskUpdate}
+          onRemoveAllTodos={handleRemoveAllTodos}
         />
       </div>
     </div>
