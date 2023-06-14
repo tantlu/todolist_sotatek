@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import UpdateTodo from "./components/updateTodo";
-import Bulk from "./components/bulk";
+import React, { useEffect, useState } from "react";
+import UpdateTodo from "./components/UpdateTodo";
+import Bulk from "./components/Bulk";
 
 function TodoList({
   todos,
   onRemoveTodo,
   onTaskUpdate,
-  onRemoveAllTodos,
-  onShowAllDetails,
+  onRemoveSelectedTodos,
 }) {
   const [detailTodoIds, setDetailTodoIds] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTodoId, setSelectedTodoId] = useState(null);
+  const [checkedTodoIds, setCheckedTodoIds] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -49,6 +49,19 @@ function TodoList({
     todo.nameTask.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleCheckboxChange = (id) => {
+    if (checkedTodoIds.includes(id)) {
+      setCheckedTodoIds(checkedTodoIds.filter((todoId) => todoId !== id));
+    } else {
+      setCheckedTodoIds([...checkedTodoIds, id]);
+    }
+  };
+
+  const handleRemoveSelectedTodos = () => {
+    onRemoveSelectedTodos(checkedTodoIds);
+    setCheckedTodoIds([]);
+  };
+
   return (
     <div className="container">
       <h1 className="form-heading">Todo List</h1>
@@ -64,7 +77,12 @@ function TodoList({
       <div className="task-list">
         {filteredTodos.map((todo, id) => (
           <div className="items-list" key={id}>
-            <input type="checkbox" className="checkbox" />
+            <input
+              type="checkbox"
+              className="checkbox"
+              checked={checkedTodoIds.includes(todo.id)}
+              onChange={() => handleCheckboxChange(todo.id)}
+            />
             <label htmlFor="nametask" className="nametask">
               {todo.nameTask}
             </label>
@@ -84,7 +102,11 @@ function TodoList({
           </div>
         ))}
       </div>
-      <Bulk onRemoveAllTodos={onRemoveAllTodos} />
+      <Bulk
+        checkedTodoIds={checkedTodoIds}
+        onRemoveSelectedTodos={handleRemoveSelectedTodos}
+        setCheckedTodoIds={setCheckedTodoIds}
+      />
     </div>
   );
 }

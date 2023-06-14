@@ -29,9 +29,12 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  const handleRemoveAllTodos = () => {
-    setTodos([]);
-    localStorage.removeItem("todos");
+  const handleRemoveSelectedTodos = (selectedTodoIds) => {
+    const updatedTodos = todos.filter(
+      (todo) => !selectedTodoIds.includes(todo.id)
+    );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   return (
@@ -44,7 +47,7 @@ function App() {
           todos={todos}
           onRemoveTodo={handleRemoveTodo}
           onTaskUpdate={handleTaskUpdate}
-          onRemoveAllTodos={handleRemoveAllTodos}
+          onRemoveSelectedTodos={handleRemoveSelectedTodos}
         />
       </div>
     </div>

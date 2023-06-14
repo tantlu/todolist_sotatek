@@ -118,6 +118,15 @@ select {
   height: 20px;
 }
 
+.done-button {
+  float: right;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 20px;
+}
+
 .bulk-action {
   width: 100%;
   box-sizing: border-box;
