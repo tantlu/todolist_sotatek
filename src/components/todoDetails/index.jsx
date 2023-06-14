@@ -62,6 +62,14 @@ function TodoList({
     setCheckedTodoIds([]);
   };
 
+  const sortByDueDate = (a, b) => {
+    const dateA = new Date(a.dueDate);
+    const dateB = new Date(b.dueDate);
+    return dateA - dateB;
+  };
+
+  const sortedTodos = filteredTodos.sort(sortByDueDate);
+
   return (
     <div className="container">
       <h1 className="form-heading">Todo List</h1>
@@ -75,7 +83,7 @@ function TodoList({
         />
       </div>
       <div className="task-list">
-        {filteredTodos.map((todo, id) => (
+        {sortedTodos.map((todo, id) => (
           <div className="items-list" key={id}>
             <input
               type="checkbox"
@@ -105,7 +113,6 @@ function TodoList({
       <Bulk
         checkedTodoIds={checkedTodoIds}
         onRemoveSelectedTodos={handleRemoveSelectedTodos}
-        setCheckedTodoIds={setCheckedTodoIds}
       />
     </div>
   );
