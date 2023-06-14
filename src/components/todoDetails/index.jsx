@@ -113,6 +113,7 @@ function TodoList({
       <Bulk
         checkedTodoIds={checkedTodoIds}
         onRemoveSelectedTodos={handleRemoveSelectedTodos}
+        setCheckedTodoIds={setCheckedTodoIds}
       />
     </div>
   );
