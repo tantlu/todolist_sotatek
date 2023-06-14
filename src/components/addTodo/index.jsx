@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./style.css";
 
 function AddTask({ onAddTask }) {
   const [taskData, setTaskData] = useState({

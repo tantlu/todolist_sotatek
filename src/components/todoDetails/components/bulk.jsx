@@ -1,15 +1,8 @@
 import React from "react";
 
-function Bulk() {
+function Bulk({ onRemoveAllTodos, onShowAllDetails }) {
   const handleRemoveAllTodos = () => {
-    // Xóa tất cả các todo
-    const updatedTodos = [];
-    setTodos(updatedTodos);
-  };
-
-  const handleShowAllDetails = () => {
-    const allTodoIds = todos.map((todo) => todo.id);
-    setDetailTodoIds(allTodoIds);
+    onRemoveAllTodos();
   };
 
   return (
@@ -21,9 +14,7 @@ function Bulk() {
         <button className="remove-button" onClick={handleRemoveAllTodos}>
           Remove
         </button>
-        <button className="detail-button" onClick={handleShowAllDetails}>
-          Details
-        </button>
+        <button className="detail-button">Details</button>
       </div>
     </div>
   );
