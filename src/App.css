@@ -125,6 +125,7 @@ select {
   border: none;
   border-radius: 5px;
   height: 20px;
+  margin-right: 20px;
 }
 
 .bulk-action {
