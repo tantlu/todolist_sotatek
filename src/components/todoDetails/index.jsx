@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UpdateTodo from "./components/updateTodo";
-import Bulk from "./components/Bulk";
+import Bulk from "./components/bulk";
 
 function TodoList({
   todos,
